@@ -90,7 +90,7 @@ class MultiThreadSingletonClass2:
                 if not hasattr(cls, '_instance'):
                     MultiThreadSingletonClass2._instance = super().__new__(cls)
 
-            return MultiThreadSingletonClass2._instance
+        return MultiThreadSingletonClass2._instance
 
 
 if __name__ == '__main__':
@@ -130,12 +130,12 @@ if __name__ == '__main__':
     #     t.start()
 
     # 多线程单例类2 - 存在问题，还未解决
-    # def task2():
-    #     obj = MultiThreadSingletonClass2()
-    #     print(obj)
-    #
-    #
-    # for i in range(10):
-    #     t = threading.Thread(target=task2)
-    #     t.start()
+    def task2():
+        obj = MultiThreadSingletonClass2()
+        print(obj)
+
+
+    for i in range(10):
+        t = threading.Thread(target=task2)
+        t.start()
     pass
