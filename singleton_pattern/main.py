@@ -129,13 +129,13 @@ if __name__ == '__main__':
     #     t = threading.Thread(target=task1, args=[i, ])
     #     t.start()
 
-    # 多线程单例类2 - 存在问题，还未解决
-    def task2():
-        obj = MultiThreadSingletonClass2()
-        print(obj)
-
-
-    for i in range(10):
-        t = threading.Thread(target=task2)
-        t.start()
+    # 多线程单例类2
+    # def task2():
+    #     obj = MultiThreadSingletonClass2()
+    #     print(obj)
+    #
+    #
+    # for i in range(10):
+    #     t = threading.Thread(target=task2)
+    #     t.start()
     pass
