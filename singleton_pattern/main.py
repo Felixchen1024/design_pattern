@@ -48,15 +48,13 @@ class SingletonClass1:
 
 # 单例类 - 饿汉
 class SingletonClass2:
-    _instance = None
-
     def __init__(self, *args, **kwargs):
         time.sleep(1)  # 没有延迟，执行速度快，出现错误几率很低，但如果__init__中有阻塞就非常明显
         pass
 
     def __new__(cls):
         # 如果类没有实例属性，进行实例化，否则返回实例
-        if not hasattr(cls, 'instance'):
+        if not hasattr(cls, '_instance'):
             cls._instance = super(SingletonClass2, cls).__new__(cls)
         return cls._instance
 
@@ -111,7 +109,7 @@ if __name__ == '__main__':
     #     t = threading.Thread(target=task, args=[i, ])
     #     t.start()
 
-    # 单例类 - 多线程饿汉（不适合多线程？）
+    # 单例类 - 多线程饿汉
     # def task():
     #     obj = SingletonClass2()
     #     print(obj)
