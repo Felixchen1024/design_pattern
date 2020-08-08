@@ -144,14 +144,32 @@ class RemoteControlWithUndo:
         self.undo_command.undo()
 
 
+# 宏命令
+class MacroCommand(Command):
+    def __init__(self, commands: list):
+        self.commands = commands
+
+    def execute(self):
+        for command in self.commands:
+            command.execute()
+
+    def undo(self):
+        for command in self.commands:
+            command.undo()
+
+
 if __name__ == '__main__':
+    ##
     # ================== Test1 ==================
+    ##
     # remote = SimpleRemoteControl()
     # # remote.set_command(LightOnCommand(Light()))
     # remote.set_command(LightOffCommand(Light()))
     # remote.button_was_pressed()
 
+    ##
     # ================== Test2 ==================
+    ##
     # remote = RemoteControl()
     # remote.set_command(0, LightOnCommand(Light()), LightOffCommand(Light()))
     # remote.set_command(1, CeilingFanOnCommand(CeilingFan()), CeilingFanOffCommand(CeilingFan()))
@@ -161,19 +179,33 @@ if __name__ == '__main__':
     # remote.on_button_was_pushed(1)
     # remote.off_button_was_pushed(1)
 
+    ##
     # ================== Test3 ==================
-    remote = RemoteControlWithUndo()
-    remote.set_command(0, LightOnCommand(Light()), LightOffCommand(Light()))
-    remote.set_command(1, CeilingFanOnCommand(CeilingFan()), CeilingFanOffCommand(CeilingFan()))
+    ##
+    # remote = RemoteControlWithUndo()
+    # remote.set_command(0, LightOnCommand(Light()), LightOffCommand(Light()))
+    # remote.set_command(1, CeilingFanOnCommand(CeilingFan()), CeilingFanOffCommand(CeilingFan()))
+    #
+    # remote.on_button_was_pushed(0)
+    # remote.undo_button_was_pushed()
+    #
+    # remote.on_button_was_pushed(1)
+    # remote.undo_button_was_pushed()
+    #
+    # remote.off_button_was_pushed(0)
+    # remote.undo_button_was_pushed()
+    #
+    # remote.off_button_was_pushed(1)
+    # remote.undo_button_was_pushed()
 
-    remote.on_button_was_pushed(0)
-    remote.undo_button_was_pushed()
-
-    remote.on_button_was_pushed(1)
-    remote.undo_button_was_pushed()
-
-    remote.off_button_was_pushed(0)
-    remote.undo_button_was_pushed()
-
-    remote.off_button_was_pushed(1)
-    remote.undo_button_was_pushed()
+    ##
+    # ================== Test3 ==================
+    ##
+    party_on = [LightOnCommand(Light()), CeilingFanOnCommand(CeilingFan())]
+    party_off = [LightOffCommand(Light()), CeilingFanOffCommand(CeilingFan())]
+    party_on_macro = MacroCommand(party_on)
+    party_on_macro.execute()
+    party_on_macro.undo()
+    party_off_macro = MacroCommand(party_off)
+    party_off_macro.execute()
+    party_off_macro.undo()
